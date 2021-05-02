@@ -5,7 +5,7 @@ class visitasModel{
 
 async getAll(){
     try {
-        const result = await pool.query("SELECT desc_marca FROM sch_bienes.tbl_marcas; ");
+        const result = await pool.query("SELECT id_tipo_visita, desc_tipo_visita, activo_tipo_visita FROM sch_control_acceso.tbl_tipo_visita ");
         return result;
     } catch (ex) {
         console.log(ex);
@@ -13,10 +13,10 @@ async getAll(){
     }
 }
 
-async insertOne(cod_marca, desc_marca){
+async insertOne(desc_tipo_visita){
     try {
-        const result = pool.query("INSERT INTO sch_bienes.tbl_marcas (cod_marca, desc_marca, activo) VALUES($1,$2,$3) RETURNING *",
-         [cod_marca, desc_marca, true]); 
+        const result = pool.query("INSERT INTO sch_control_acceso.tbl_tipo_visita(desc_tipo_visita, activo_tipo_visita) VALUES ($1, $2) RETURNING * ",
+         [desc_tipo_visita, true]); 
         return result;
     } catch (ex) {
         console.log(ex);
@@ -26,10 +26,10 @@ async insertOne(cod_marca, desc_marca){
 
 
 
-async updateState(id_marca, activo){
+async updateState(id_tipo_visita, activo_tipo_visita){
     try {
-        const result = pool.query("UPDATE sch_bienes.tbl_marcas SET activo = $2 WHERE id_marca = $1 ",
-         [id_marca, activo]); 
+        const result = pool.query("UPDATE sch_control_acceso.tbl_tipo_visita SET activo_tipo_visita = $2 WHERE id_tipo_visita = $1 ",
+         [id_tipo_visita, activo_tipo_visita]); 
         return result;
     } catch (ex) {
         throw(ex);

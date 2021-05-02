@@ -5,7 +5,7 @@ class deptoModel{
 
     async getAll(){
         try {
-            const result = await pool.query("SELECT desc_marca FROM sch_bienes.tbl_marcas; ");
+            const result = await pool.query("SELECT * FROM sch_control_acceso.tbl_departamentos ");
             return result;
         } catch (ex) {
             console.log(ex);
@@ -13,10 +13,10 @@ class deptoModel{
         }
     }
     
-    async insertOne(cod_marca, desc_marca){
+    async insertOne(cod_departamento,desc_departamento){
         try {
-            const result = pool.query("INSERT INTO sch_bienes.tbl_marcas (cod_marca, desc_marca, activo) VALUES($1,$2,$3) RETURNING *",
-             [cod_marca, desc_marca, true]); 
+            const result = pool.query("INSERT INTO sch_control_acceso.tbl_departamentos(cod_departamento, desc_departamento, activo_departamento) VALUES ($1, $2, $3) RETURNING * ",
+             [cod_departamento, desc_departamento, true]); 
             return result;
         } catch (ex) {
             console.log(ex);
@@ -25,11 +25,10 @@ class deptoModel{
     }
     
     
-    
-    async updateState(id_marca, activo){
+    async updateState(id_departamento, activo_departamento){
         try {
-            const result = pool.query("UPDATE sch_bienes.tbl_marcas SET activo = $2 WHERE id_marca = $1 ",
-             [id_marca, activo]); 
+            const result = pool.query("UPDATE sch_control_acceso.tbl_departamentos SET activo_departamento = $2 WHERE id_departamento = $1 ",
+             [id_departamento, activo_departamento]); 
             return result;
         } catch (ex) {
             throw(ex);

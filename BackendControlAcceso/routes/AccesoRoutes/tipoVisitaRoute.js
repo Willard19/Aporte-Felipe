@@ -18,8 +18,8 @@ try {
 
 router.post("/",async(req,res) =>{
     try {
-        const {cod_tipo_visita, desc_tipo_visita} = req.body;
-        const result = await visit.insertOne(cod_tipo_visita, desc_tipo_visita);
+        const  {desc_tipo_visita} = req.body;
+        const result = await visit.insertOne(desc_tipo_visita);
         res.status(200).json({'result': result,'code':200});
     } catch (ex) {
         console.log(ex);
