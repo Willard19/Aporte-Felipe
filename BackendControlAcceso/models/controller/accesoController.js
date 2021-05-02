@@ -24,10 +24,10 @@ class accesoModel{
     }
 
     
-    async insertOne(cod_marca, desc_marca){
+    async insertOneEntrada(id_tipo_visita,id_departamento,nombre,temperatura,hora_entrada,fecha){
         try {
-            const result = pool.query("INSERT INTO sch_bienes.tbl_marcas (cod_marca, desc_marca, activo) VALUES($1,$2,$3) RETURNING *",
-             [cod_marca, desc_marca, true]); 
+            const result = pool.query("INSERT INTO sch_control_acceso.tbl_acceso_entrada(id_tipo_visita, id_departamento, nombre, temperatura, hora_entrada, fecha) VALUES ($1, $2, $3, $4, $5, $6) RETURNING * ",
+            [id_tipo_visita,id_departamento,nombre,temperatura,hora_entrada,fecha]); 
             return result;
         } catch (ex) {
             console.log(ex);
@@ -36,17 +36,17 @@ class accesoModel{
     }
     
     
-    
-    async updateState(id_marca, activo){
+    async insertOneSalida(nombre,hora_salida,fecha){
         try {
-            const result = pool.query("UPDATE sch_bienes.tbl_marcas SET activo = $2 WHERE id_marca = $1 ",
-             [id_marca, activo]); 
+            const result = pool.query("INSERT INTO sch_control_acceso.tbl_acceso_salida(nombre, hora_salida, fecha) VALUES ( $1, $2, $3) RETURNING * ",
+            [nombre,hora_salida,fecha]); 
             return result;
         } catch (ex) {
-            throw(ex);
+            console.log(ex);
+            throw (ex);
         }
-    
     }
+
     
     }
     module.exports = accesoModel;
